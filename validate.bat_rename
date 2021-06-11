@@ -1,0 +1,17 @@
+echo off
+set fileName=%1
+if exist target/sodoku-verifier-1.0.jar goto jarExists
+if not exist target/sodoku-verifier-1.0.jar goto packageJar
+goto end
+:jarExists
+echo JAR EXISTS PROCESSING
+copy %fileName% target
+cd target
+java -jar sodoku-verifier-1.0.jar %fileName%
+cd ..
+goto end
+:packageJar
+echo JAR DOES NOT EXIST PACKAGING
+mvn package
+goto jarExists
+:end
